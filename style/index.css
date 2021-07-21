@@ -1,0 +1,25 @@
+.jp-DebuggerRestarts {
+  display: flex;
+  flex-direction: column;
+}
+
+.jp-DebuggerRestarts-body {
+  padding: 10px;
+  overflow: auto;
+}
+
+.jp-DebuggerRestart {
+  display: flex;
+  align-items: center;
+}
+
+.jp-DebuggerRestart:hover {
+  background: var(--jp-layout-color2);
+  cursor: pointer;
+}
+
+.jp-DebuggerRestart-text {
+  white-space: nowrap;
+  margin-right: 5px;
+}
+

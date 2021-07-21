@@ -1,6 +1,6 @@
 {
   "name": "jupyterlab-debugger-restarts",
-  "version": "0.1.1",
+  "version": "0.1.6",
   "description": "Common Lisp restart functionallity for the JupyterLab debugger",
   "keywords": [
     "jupyter",
@@ -18,9 +18,11 @@
   },
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
+    "style/*.css",
     "LICENSE.md"
   ],
   "main": "lib/index.js",
+  "style": "style/index.css",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",

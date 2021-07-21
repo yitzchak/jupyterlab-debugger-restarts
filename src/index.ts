@@ -5,6 +5,10 @@ import {
 
 import { IDebugger, IDebuggerSidebar } from '@jupyterlab/debugger';
 
+import { IRestartsModel } from './tokens';
+import { RestartsModel } from './model';
+import { RestartsPanel } from './panel';
+
 /**
  * Initialization data for the jupyterlab-debugger-restarts extension.
  */
@@ -18,9 +22,34 @@ const plugin: JupyterFrontEndPlugin<void> = {
     sidebar: IDebugger.ISidebar
   ) => {
     console.log('jupyterlab-debugger-restarts activated.');
-    service.eventMessage.connect((service: IDebugger, event: IDebugger.ISession.Event) => {
-      console.log(event);
+
+    let model: IRestartsModel = new RestartsModel();
+    let panel: RestartsPanel = new RestartsPanel({
+      model: model
     });
+
+    model.clicked.connect((model: IRestartsModel, restartNumber: number) => {
+      if (service.session) {
+        service.session.sendRequest('continue', {
+          threadId: model.threadId,
+          restart: restartNumber
+        } as any);
+      }
+    });
+
+    service.eventMessage.connect((service: IDebugger, event: IDebugger.ISession.Event) => {
+      switch (event.event) {
+        case 'stopped':
+          model.threadId = event.body.threadId;
+          model.restarts = event.body.restarts || [];
+          break;
+        case 'continued':
+          model.restarts = [];
+          break;
+      }
+    });
+
+    sidebar.addItem(panel);
   }
 };
 
