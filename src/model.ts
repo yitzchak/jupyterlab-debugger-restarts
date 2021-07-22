@@ -1,16 +1,16 @@
 import { ISignal, Signal } from '@lumino/signaling';
 
-import { IRestartsModel } from './tokens';
+import { IRestart, IRestartsModel } from './tokens';
 
 
 export class RestartsModel implements IRestartsModel {
 
-  private _restarts: string[] = [];
+  private _restarts: IRestart[] = [];
   private _threadId: number = 1;
-  private _changed = new Signal<this, string[]>(this);
+  private _changed = new Signal<this, IRestart[]>(this);
   private _clicked = new Signal<this, number>(this);
 
-  get changed(): ISignal<this, string[]> {
+  get changed(): ISignal<this, IRestart[]> {
     return this._changed;
   }
 
@@ -18,11 +18,11 @@ export class RestartsModel implements IRestartsModel {
     return this._clicked;
   }
 
-  get restarts(): string[] {
+  get restarts(): IRestart[] {
     return this._restarts;
   }
 
-  set restarts(restarts: string[]) {
+  set restarts(restarts: IRestart[]) {
     this._restarts = restarts;
     this._changed.emit(restarts);
   }

@@ -44,12 +44,18 @@ const plugin: JupyterFrontEndPlugin<void> = {
           model.restarts = event.body.restarts || [];
           break;
         case 'continued':
+        case 'initialized':
+        case 'terminated':
           model.restarts = [];
           break;
       }
     });
 
-    sidebar.addItem(panel);
+    service.sessionChanged.connect((service: IDebugger, session: IDebugger.ISession | null) => {
+      model.restarts = [];
+    });
+
+    sidebar.insertItem(2, panel);
   }
 };
 

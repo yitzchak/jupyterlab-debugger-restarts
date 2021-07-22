@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Toolbar } from '@jupyterlab/apputils';
 
-import { IRestartsModel } from './tokens';
+import { IRestart, IRestartsModel } from './tokens';
 
 
 class RestartsBody extends ReactWidget {
@@ -35,7 +35,7 @@ const RestartsComponent = ({
   useEffect(() => {
     const updateRestarts = (
       _: IRestartsModel,
-      updates: string[]
+      updates: IRestart[]
     ): void => {
       setRestarts(Array.from(model.restarts));
     };
@@ -54,15 +54,18 @@ const RestartsComponent = ({
   });
 
   return (
-    <>
-      {restarts.map((restart, index) => (
-        <RestartComponent
-          index={index}
-          restart={restart}
-          model={model}
-        />
-      ))}
-    </>
+    <table className={'jp-DebuggerRestarts-list'}>
+      <tbody>
+        {restarts.map((restart, index) => (
+          <RestartComponent
+            key={index}
+            index={index}
+            restart={restart}
+            model={model}
+          />
+        ))}
+      </tbody>
+    </table>
   );
 };
 
@@ -73,17 +76,18 @@ const RestartComponent = ({
   model
 }: {
   index: number;
-  restart: string;
+  restart: IRestart;
   model: IRestartsModel;
 }): JSX.Element => {
   return (
-    <div
+    <tr
       className={'jp-DebuggerRestart'}
       onClick={(): void => model.clicked.emit(index)}
-      title={restart}
+      title={restart.text}
     >
-      <span className={'jp-DebuggerRestart-text'}>{restart}</span>
-    </div>
+      <td className={'jp-DebuggerRestart-name'}>{restart.name}</td>
+      <td className={'jp-DebuggerRestart-text'}>{restart.text}</td>
+    </tr>
   );
 };
 
