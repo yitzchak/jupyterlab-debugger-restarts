@@ -32,7 +32,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
       if (service.session) {
         service.session.sendRequest('continue', {
           threadId: model.threadId,
-          restart: restartNumber
+          restart: restartNumber,
+          frameId: service.model.callstack.frame?.id
         } as any);
       }
     });
