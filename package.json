@@ -1,7 +1,7 @@
 {
   "name": "jupyterlab-debugger-restarts",
-  "version": "0.1.23",
-  "description": "Common Lisp restart functionallity for the JupyterLab debugger",
+  "version": "0.2.0",
+  "description": "Common Lisp restart functionality for the JupyterLab debugger",
   "keywords": [
     "jupyter",
     "jupyterlab",

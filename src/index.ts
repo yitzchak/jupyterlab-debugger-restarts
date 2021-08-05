@@ -3,6 +3,8 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
+import { Kernel, Session } from '@jupyterlab/services';
+
 import { IDebugger, IDebuggerSidebar } from '@jupyterlab/debugger';
 
 import { IRestartsModel } from './tokens';
@@ -54,6 +56,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
     service.sessionChanged.connect((service: IDebugger, session: IDebugger.ISession | null) => {
       model.restarts = [];
+      if (session && session.connection) {
+        session.connection.kernelChanged.connect((connection: Session.ISessionConnection, args: Session.ISessionConnection.IKernelChangedArgs) => {
+          model.restarts = [];
+        });
+        session.connection.statusChanged.connect((connection: Session.ISessionConnection, status: Kernel.Status) => {
+          if (status === 'restarting') {
+            model.restarts = [];
+          }
+        });
+      }
     });
 
     sidebar.insertItem(2, panel);

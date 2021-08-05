@@ -110,7 +110,8 @@ export class RestartsPanel extends Panel {
 
 class RestartsHeader extends Widget {
   constructor() {
-    super({ node: document.createElement('header') });
+    super({ node: document.createElement('div') });
+    this.node.classList.add('jp-stack-panel-header');
 
     const title = new Widget({ node: document.createElement('h2') });
     title.node.textContent = 'Restarts';
