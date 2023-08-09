@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@jupyterlab/application": "^3.0.0",
-    "@jupyterlab/debugger": "^3.0.12",
+    "@jupyterlab/debugger": "^4.0.4",
     "react": "^18.2.0"
   },
   "devDependencies": {
